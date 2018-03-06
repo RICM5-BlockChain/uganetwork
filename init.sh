@@ -1,2 +1,4 @@
 ./generate.sh
-./byfn.sh -m up
+./up.sh
+cd composer/
+./deploy.sh

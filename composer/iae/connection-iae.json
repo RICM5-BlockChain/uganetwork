@@ -1,0 +1,44 @@
+{
+    "name": "uga-network-iae",
+    "type": "hlfv1",
+    "mspID": "IAEMSP",
+    "peers": [
+        {
+            "requestURL": "grpcs://localhost:9051",
+            "eventURL": "grpcs://localhost:9053",
+            "cert": "crypto-config/peerOrganizations/iae.ugachain.com/peers/peer0.iae.ugachain.com/tls/ca.crt",
+            "hostnameOverride": "peer0.iae.ugachain.com"
+        },
+        {
+            "requestURL": "grpcs://localhost:10051",
+            "eventURL": "grpcs://localhost:10053",
+            "cert": "crypto-config/peerOrganizations/iae.ugachain.com/peers/peer1.iae.ugachain.com/tls/ca.crt",
+            "hostnameOverride": "peer1.iae.ugachain.com"
+        },
+        {
+            "requestURL": "grpcs://localhost:7051",
+            "cert": "crypto-config/peerOrganizations/polytech.ugachain.com/peers/peer0.polytech.ugachain.com/tls/ca.crt",
+            "hostnameOverride": "peer0.polytech.ugachain.com"
+        },
+        {
+            "requestURL": "grpcs://localhost:8051",
+            "cert": "crypto-config/peerOrganizations/polytech.ugachain.com/peers/peer1.polytech.ugachain.com/tls/ca.crt",
+            "hostnameOverride": "peer1.polytech.ugachain.com"
+        }
+    ],
+    "ca": {
+        "url": "https://localhost:8054",
+        "name": "ca-iae",
+        "cert": "crypto-config/peerOrganizations/iae.ugachain.com/peers/peer0.iae.ugachain.com/tls/ca.crt",
+        "hostnameOverride": "ca.iae.ugachain.com"
+    },
+    "orderers": [
+        {
+            "url" : "grpcs://localhost:7050",
+            "cert": "crypto-config/ordererOrganizations/ugachain.com/orderers/orderer.ugachain.com/tls/ca.crt",
+            "hostnameOverride": "orderer.ugachain.com"
+        }
+    ],
+    "channel": "ugachannel",
+    "timeout": 300
+}

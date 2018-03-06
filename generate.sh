@@ -21,6 +21,8 @@ cryptogen generate --config=./crypto-config.yaml
 
 # Copy the template to the file that will be modified to add the private key
 cp docker-compose-e2e-template.yaml docker-compose-e2e.yaml
+cp docker-compose-cas-template.yaml docker-compose-cas.yaml
+
 
 # sed on MacOSX does not support -i flag with a null extension. We will use
 # 't' for our back-up's extension and depete it at the end of the function
@@ -37,14 +39,14 @@ CURRENT_DIR=$PWD
 cd crypto-config/peerOrganizations/polytech.ugachain.com/ca/
 PRIV_KEY=$(ls *_sk)
 cd "$CURRENT_DIR"
-sed $OPTS "s/CA1_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-e2e.yaml
+sed $OPTS "s/CA1_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-e2e.yaml docker-compose-cas.yaml
 cd crypto-config/peerOrganizations/iae.ugachain.com/ca/
 PRIV_KEY=$(ls *_sk)
 cd "$CURRENT_DIR"
-sed $OPTS "s/CA2_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-e2e.yaml
+sed $OPTS "s/CA2_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-e2e.yaml docker-compose-cas.yaml
 # If MacOSX, remove the temporary backup of the docker-compose file
 if [ "$ARCH" == "Darwin" ]; then
-  rm docker-compose-e2e.yamlt
+  rm docker-compose-e2e.yaml docker-compose-cas.yaml
 fi
 
 # Génération des artéfacts---------------------------------------------

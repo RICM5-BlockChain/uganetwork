@@ -2,6 +2,10 @@ composer card delete -n PeerAdmin@uga-network-polytech-only
 composer card delete -n PeerAdmin@uga-network-polytech
 composer card delete -n PeerAdmin@uga-network-iae-only
 composer card delete -n PeerAdmin@uga-network-iae
+composer card delete -n polytechadmin@uganetwork
+composer card delete -n iaeadmin@uganetwork
+composer card delete -n admin@iaenetwork
+composer card delete -n PeerAdmin@fabric-network
 rm *.card
 rm ./iae/*.pem
 rm ./iae/*_sk

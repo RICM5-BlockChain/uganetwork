@@ -1,3 +1,5 @@
+#!/bin/bash
+
 composer card delete -n PeerAdmin@uga-network-polytech-only
 composer card delete -n PeerAdmin@uga-network-polytech
 composer card delete -n PeerAdmin@uga-network-iae-only

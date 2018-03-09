@@ -116,7 +116,7 @@ joinChannel () {
 installChaincode () {
 	PEER=$1
 	setGlobals $PEER
-	peer chaincode install -n mycc -v 1.0 -p github.com/hyperledger/fabric/ugachains/chaincode/go/chaincode_ugachain02 >&log.txt
+	peer chaincode install -n mycc -v 1.0 -p github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02/go >&log.txt
 	res=$?
 	cat log.txt
         verifyResult $res "Chaincode installation on remote peer PEER$PEER has Failed"
@@ -176,7 +176,7 @@ chaincodeInvoke () {
 	# while 'peer chaincode' command can get the orderer endpoint from the peer (if join was successful),
 	# lets supply it directly as we know it using the "-o" option
 	if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "false" ]; then
-		peer chaincode invoke -o orderer.ugachain.com:7050 -C $CHANNEL_NAME -n mycc -c '{"Args":["invoke","a","b","10"]}' >&log.txt
+		peer chaincode invoke -o orderer.ugachain.com:7050 -C $CHANNEL_NAME -n ugacc -c '{"Args":["invoke","a","b","10"]}' >&log.txt
 	else
 		peer chaincode invoke -o orderer.ugachain.com:7050  --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n mycc -c '{"Args":["invoke","a","b","10"]}' >&log.txt
 	fi
@@ -200,6 +200,16 @@ echo "Updating anchor peers for polytech..."
 updateAnchorPeers 0
 echo "Updating anchor peers for iae..."
 updateAnchorPeers 2
+
+ echo "Install chaincode 0"
+ installChaincode 0
+ echo "Install chaincode 2"
+ installChaincode 2
+
+ #Instantiate chaincode on Peer2/Org2
+echo "Instantiating chaincode on org2/peer2..."
+instantiateChaincode 2
+
 
 echo
 echo "========= All GOOD, BYFN execution completed =========== "

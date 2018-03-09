@@ -21,7 +21,7 @@ services:
     command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.polytech.ugachain.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA1_PRIVATE_KEY -b admin:adminpw -d'
     volumes:
       - ./crypto-config/peerOrganizations/polytech.ugachain.com/ca/:/etc/hyperledger/fabric-ca-server-config
-    container_name: ca_peerOrg1
+    container_name: ca_peerPolytech
     networks:
       - ugan
 
@@ -38,6 +38,6 @@ services:
     command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.iae.ugachain.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA2_PRIVATE_KEY -b admin:adminpw -d'
     volumes:
       - ./crypto-config/peerOrganizations/iae.ugachain.com/ca/:/etc/hyperledger/fabric-ca-server-config
-    container_name: ca_peerOrg2
+    container_name: ca_peerIAE
     networks:
       - ugan

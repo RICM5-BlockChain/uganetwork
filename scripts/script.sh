@@ -11,7 +11,7 @@ echo "Build your first network (BYFN) end-to-end test"
 echo
 CHANNEL_NAME="$1"
 DELAY="$2"
-: ${CHANNEL_NAME:="mychannel"}
+: ${CHANNEL_NAME:="ugachannel"}
 : ${TIMEOUT:="60"}
 COUNTER=1
 MAX_RETRY=5
@@ -200,6 +200,11 @@ echo "Updating anchor peers for polytech..."
 updateAnchorPeers 0
 echo "Updating anchor peers for iae..."
 updateAnchorPeers 2
+## Install chaincode on Peer0/Org1 and Peer2/Org2
+echo "Installing chaincode on org1/peer0..."
+installChaincode 0
+# echo "Install chaincode on org2/peer2..."
+# installChaincode 2
 
  echo "Install chaincode 0"
  installChaincode 0
@@ -214,6 +219,17 @@ instantiateChaincode 2
 echo
 echo "========= All GOOD, BYFN execution completed =========== "
 echo
+
+# #Query on chaincode on Peer0/Org1
+# echo "Querying chaincode on org1/peer0..."
+# chaincodeQuery 0 100
+
+# #Invoke on chaincode on Peer0/Org1
+# echo "Sending invoke transaction on org1/peer0..."
+# chaincodeInvoke 0
+# echo
+# echo "========= All GOOD, BYFN execution completed =========== "
+# echo
 
 echo
 echo " _____   _   _   ____   "

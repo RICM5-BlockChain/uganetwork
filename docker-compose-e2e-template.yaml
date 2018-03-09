@@ -6,7 +6,7 @@
 version: '2'
 
 networks:
-  byfn:
+  ugan:
 services:
   ca0:
     image: hyperledger/fabric-ca
@@ -23,7 +23,7 @@ services:
       - ./crypto-config/peerOrganizations/polytech.ugachain.com/ca/:/etc/hyperledger/fabric-ca-server-config
     container_name: ca_peerPolytech
     networks:
-      - byfn
+      - ugan
 
   ca1:
     image: hyperledger/fabric-ca
@@ -40,7 +40,7 @@ services:
       - ./crypto-config/peerOrganizations/iae.ugachain.com/ca/:/etc/hyperledger/fabric-ca-server-config
     container_name: ca_peerIAE
     networks:
-      - byfn
+      - ugan
 
   orderer.ugachain.com:
     extends:
@@ -48,7 +48,7 @@ services:
       service: orderer.ugachain.com
     container_name: orderer.ugachain.com
     networks:
-      - byfn
+      - ugan
 
   peer0.polytech.ugachain.com:
     container_name: peer0.polytech.ugachain.com
@@ -56,7 +56,7 @@ services:
       file:  base/docker-compose-base.yaml
       service: peer0.polytech.ugachain.com
     networks:
-      - byfn
+      - ugan
 
   peer1.polytech.ugachain.com:
     container_name: peer1.polytech.ugachain.com
@@ -64,7 +64,7 @@ services:
       file:  base/docker-compose-base.yaml
       service: peer1.polytech.ugachain.com
     networks:
-      - byfn
+      - ugan
 
   peer0.iae.ugachain.com:
     container_name: peer0.iae.ugachain.com
@@ -72,7 +72,7 @@ services:
       file:  base/docker-compose-base.yaml
       service: peer0.iae.ugachain.com
     networks:
-      - byfn
+      - ugan
 
   peer1.iae.ugachain.com:
     container_name: peer1.iae.ugachain.com
@@ -80,4 +80,4 @@ services:
       file:  base/docker-compose-base.yaml
       service: peer1.iae.ugachain.com
     networks:
-      - byfn
+      - ugan

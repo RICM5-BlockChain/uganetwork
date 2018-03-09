@@ -1,6 +1,6 @@
 
 CHANNEL_NAME="ugachannel"
-CLI_TIMEOUT=10000
+CLI_TIMEOUT=10
 CLI_DELAY=3
 COMPOSE_FILE=docker-compose-cli.yaml
 

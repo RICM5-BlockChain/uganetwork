@@ -1,0 +1,20 @@
+# Admin network
+iaeadmin
+polytechadmin
+
+# Unused docker-compose
+docker-compose-cas.yaml*
+docker-compose-e2e.yaml*
+
+# Logs
+composer-logs
+
+# Cards
+composer/*.card
+
+# Pem and secret key
+*.pem
+*_sk
+
+# Crypto config
+crypto-config

@@ -1,3 +1,4 @@
+#!/bin/bash
 
 CHANNEL_NAME="ugachannel"
 CLI_TIMEOUT=10

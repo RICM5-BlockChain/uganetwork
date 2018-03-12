@@ -8,7 +8,7 @@ COMPOSE_FILE=docker-compose-cli.yaml
 
 
 
-CHANNEL_NAME=$CHANNEL_NAME TIMEOUT=$CLI_TIMEOUT DELAY=$CLI_DELAY docker-compose -f $COMPOSE_FILE -f docker-compose-cas.yaml -f docker-compose-e2e.yaml up -d 2>&1
+CHANNEL_NAME=$CHANNEL_NAME TIMEOUT=$CLI_TIMEOUT DELAY=$CLI_DELAY docker-compose -f $COMPOSE_FILE -f docker-compose-cas.yaml up -d 2>&1
 
 echo "Printing CLI logs :"
 

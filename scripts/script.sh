@@ -16,7 +16,7 @@ DELAY="$2"
 COUNTER=1
 MAX_RETRY=5
 ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/ugachain.com/orderers/orderer.ugachain.com/msp/tlscacerts/tlsca.ugachain.com-cert.pem
-NETWORK_NAME="ugan"
+NETWORK_NAME="uga-network"
 COMPOSER_VERSION="0.16.5" # Important
 
 echo "Channel name : "$CHANNEL_NAME

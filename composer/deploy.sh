@@ -49,7 +49,24 @@ composer identity request -c PeerAdmin@uga-network-polytech-only -u admin -s adm
 composer identity request -c PeerAdmin@uga-network-iae-only -u admin -s adminpw -d iaeadmin
 
 # Demarrage du business network
-composer network start -c PeerAdmin@uga-network-polytech -a ugan@0.0.1.bna \
+composer network start -c PeerAdmin@uga-network-polytech -a uga-network@0.0.1.bna \
     -o endorsementPolicyFile=endorsement-policy.json -A polytechadmin \
     -C polytechadmin/admin-pub.pem -A iaeadmin -C iaeadmin/admin-pub.pem \
     -l "DEBUG"
+
+
+# Création et importation d'une nouvelle business network card (Polytech Admin)
+composer card create -p composer/polytech/connection-polytech.json -u polytechadmin -n uga-network \
+    -c polytechadmin/admin-pub.pem -k polytechadmin/admin-priv.pem
+composer card import -f polytechadmin@uga-network.card
+
+# Ping PolytechAdmin
+composer network ping -c polytechadmin@uga-network
+
+# Création et importation d'une nouvelle business network card (Iae Admin)
+composer card create -p composer/iae/connection-iae.json -u iaeadmin -n uga-network \
+    -c iaeadmin/admin-pub.pem -k iaeadmin/admin-priv.pem
+composer card import -f iaeadmin@uga-network.card
+
+# Ping IAEAdmin
+composer network ping -c iaeadmin@uga-network

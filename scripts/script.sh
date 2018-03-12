@@ -17,8 +17,10 @@ COUNTER=1
 MAX_RETRY=5
 ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/ugachain.com/orderers/orderer.ugachain.com/msp/tlscacerts/tlsca.ugachain.com-cert.pem
 NETWORK_NAME="ugan"
+COMPOSER_VERSION="0.16.5" # Important
 
 echo "Channel name : "$CHANNEL_NAME
+echo $COMPOSER_VERSION
 
 # verify the result of the end-to-end test
 verifyResult () {
@@ -118,7 +120,7 @@ installChaincode () {
 	PEER=$1
 	setGlobals $PEER
 	CC_PATH=github.com/hyperledger/fabric/ugachains/chaincode/sacc
-	peer chaincode package -n $NETWORK_NAME -p $CC_PATH -v 0.16.5 -s -S /opt/gopath/src/$CC_PATH/ugacc.out # -i "AND('OrgA.admin')" <- pour ajouter des droits d'instanciation
+	peer chaincode package -n $NETWORK_NAME -p $CC_PATH -v $COMPOSER_VERSION -s -S /opt/gopath/src/$CC_PATH/ugacc.out # -i "AND('OrgA.admin')" <- pour ajouter des droits d'instanciation
 	peer chaincode signpackage /opt/gopath/src/$CC_PATH/ugacc.out /opt/gopath/src/$CC_PATH/signedugacc.out
 	peer chaincode install /opt/gopath/src/$CC_PATH/signedugacc.out >&log.txt
 	res=$?
@@ -134,9 +136,9 @@ instantiateChaincode () {
 	# while 'peer chaincode' command can get the orderer endpoint from the peer (if join was successful),
 	# lets supply it directly as we know it using the "-o" option
 	if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "false" ]; then
-		peer chaincode instantiate -o orderer.ugachain.com:7050 -C $CHANNEL_NAME -n $NETWORK_NAME -v 0.16.5 -c '{"Args":["init","a","100","b","200"]}' -P "OR	('PolytechMSP.member','IAEMSP.member')" >&log.txt
+		peer chaincode instantiate -o orderer.ugachain.com:7050 -C $CHANNEL_NAME -n $NETWORK_NAME -v $COMPOSER_VERSION -c '{"Args":["init","a","100","b","200"]}' -P "OR	('PolytechMSP.member','IAEMSP.member')" >&log.txt
 	else
-		peer chaincode instantiate -o orderer.ugachain.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n $NETWORK_NAME -v 0.16.5 -c '{"Args":["init","a","100","b","200"]}' -P "OR	('PolytechMSP.member','IAEMSP.member')" >&log.txt
+		peer chaincode instantiate -o orderer.ugachain.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n $NETWORK_NAME -v $COMPOSER_VERSION -c '{"Args":["init","a","100","b","200"]}' -P "OR	('PolytechMSP.member','IAEMSP.member')" >&log.txt
 	fi
 	res=$?
 	cat log.txt

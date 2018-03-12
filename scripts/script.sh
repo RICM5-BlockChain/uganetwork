@@ -20,7 +20,6 @@ NETWORK_NAME="ugan"
 COMPOSER_VERSION="0.16.5" # Important
 
 echo "Channel name : "$CHANNEL_NAME
-echo $COMPOSER_VERSION
 
 # verify the result of the end-to-end test
 verifyResult () {
@@ -119,7 +118,7 @@ joinChannel () {
 installChaincode () {
 	PEER=$1
 	setGlobals $PEER
-	CC_PATH=github.com/hyperledger/fabric/ugachains/chaincode/sacc
+	CC_PATH=github.com/hyperledger/fabric/ugachains/chaincode
 	peer chaincode package -n $NETWORK_NAME -p $CC_PATH -v $COMPOSER_VERSION -s -S /opt/gopath/src/$CC_PATH/ugacc.out # -i "AND('OrgA.admin')" <- pour ajouter des droits d'instanciation
 	peer chaincode signpackage /opt/gopath/src/$CC_PATH/ugacc.out /opt/gopath/src/$CC_PATH/signedugacc.out
 	peer chaincode install /opt/gopath/src/$CC_PATH/signedugacc.out >&log.txt

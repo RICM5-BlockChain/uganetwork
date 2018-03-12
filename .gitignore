@@ -10,7 +10,7 @@ docker-compose-e2e.yaml*
 composer-logs
 
 # Cards
-composer/*.card
+*.card
 
 # Pem and secret key
 *.pem

@@ -49,7 +49,7 @@ composer identity request -c PeerAdmin@uga-network-polytech-only -u admin -s adm
 composer identity request -c PeerAdmin@uga-network-iae-only -u admin -s adminpw -d iaeadmin
 
 # Demarrage du business network
-composer network start -c PeerAdmin@uga-network-polytech -a uganetwork@0.0.1.bna \
+composer network start -c PeerAdmin@uga-network-polytech -a ugan@0.0.1.bna \
     -o endorsementPolicyFile=endorsement-policy.json -A polytechadmin \
     -C polytechadmin/admin-pub.pem -A iaeadmin -C iaeadmin/admin-pub.pem \
     -l "DEBUG"

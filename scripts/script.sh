@@ -16,6 +16,7 @@ DELAY="$2"
 COUNTER=1
 MAX_RETRY=5
 ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/ugachain.com/orderers/orderer.ugachain.com/msp/tlscacerts/tlsca.ugachain.com-cert.pem
+NETWORK_NAME="ugan"
 
 echo "Channel name : "$CHANNEL_NAME
 
@@ -116,7 +117,10 @@ joinChannel () {
 installChaincode () {
 	PEER=$1
 	setGlobals $PEER
-	peer chaincode install -n mycc -v 1.0 -p github.com/hyperledger/fabric/ugachains/chaincode/chaincode_example02/go >&log.txt
+	CC_PATH=github.com/hyperledger/fabric/ugachains/chaincode/sacc
+	peer chaincode package -n $NETWORK_NAME -p $CC_PATH -v 0.16.5 -s -S /opt/gopath/src/$CC_PATH/ugacc.out # -i "AND('OrgA.admin')" <- pour ajouter des droits d'instanciation
+	peer chaincode signpackage /opt/gopath/src/$CC_PATH/ugacc.out /opt/gopath/src/$CC_PATH/signedugacc.out
+	peer chaincode install /opt/gopath/src/$CC_PATH/signedugacc.out >&log.txt
 	res=$?
 	cat log.txt
         verifyResult $res "Chaincode installation on remote peer PEER$PEER has Failed"
@@ -130,9 +134,9 @@ instantiateChaincode () {
 	# while 'peer chaincode' command can get the orderer endpoint from the peer (if join was successful),
 	# lets supply it directly as we know it using the "-o" option
 	if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "false" ]; then
-		peer chaincode instantiate -o orderer.ugachain.com:7050 -C $CHANNEL_NAME -n mycc -v 1.0 -c '{"Args":["init","a","100","b","200"]}' -P "OR	('PolytechMSP.member','IAEMSP.member')" >&log.txt
+		peer chaincode instantiate -o orderer.ugachain.com:7050 -C $CHANNEL_NAME -n $NETWORK_NAME -v 0.16.5 -c '{"Args":["init","a","100","b","200"]}' -P "OR	('PolytechMSP.member','IAEMSP.member')" >&log.txt
 	else
-		peer chaincode instantiate -o orderer.ugachain.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n mycc -v 1.0 -c '{"Args":["init","a","100","b","200"]}' -P "OR	('PolytechMSP.member','IAEMSP.member')" >&log.txt
+		peer chaincode instantiate -o orderer.ugachain.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n $NETWORK_NAME -v 0.16.5 -c '{"Args":["init","a","100","b","200"]}' -P "OR	('PolytechMSP.member','IAEMSP.member')" >&log.txt
 	fi
 	res=$?
 	cat log.txt
@@ -154,7 +158,7 @@ chaincodeQuery () {
   do
      sleep $DELAY
      echo "Attempting to Query PEER$PEER ...$(($(date +%s)-starttime)) secs"
-     peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}' >&log.txt
+     peer chaincode query -C $CHANNEL_NAME -n $NETWORK_NAME -c '{"Args":["query","a"]}' >&log.txt
      test $? -eq 0 && VALUE=$(cat log.txt | awk '/Query Result/ {print $NF}')
      test "$VALUE" = "$2" && let rc=0
   done
@@ -176,9 +180,9 @@ chaincodeInvoke () {
 	# while 'peer chaincode' command can get the orderer endpoint from the peer (if join was successful),
 	# lets supply it directly as we know it using the "-o" option
 	if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "false" ]; then
-		peer chaincode invoke -o orderer.ugachain.com:7050 -C $CHANNEL_NAME -n ugacc -c '{"Args":["invoke","a","b","10"]}' >&log.txt
+		peer chaincode invoke -o orderer.ugachain.com:7050 -C $CHANNEL_NAME -n $NETWORK_NAME -c '{"Args":["invoke","a","b","10"]}' >&log.txt
 	else
-		peer chaincode invoke -o orderer.ugachain.com:7050  --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n mycc -c '{"Args":["invoke","a","b","10"]}' >&log.txt
+		peer chaincode invoke -o orderer.ugachain.com:7050  --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n $NETWORK_NAME -c '{"Args":["invoke","a","b","10"]}' >&log.txt
 	fi
 	res=$?
 	cat log.txt
@@ -201,14 +205,15 @@ updateAnchorPeers 0
 echo "Updating anchor peers for iae..."
 updateAnchorPeers 2
 
+# Install chaincode
 echo "Install chaincode 0"
 installChaincode 0
 echo "Install chaincode 2"
 installChaincode 2
 
- #Instantiate chaincode on Peer2/Org2
-echo "Instantiating chaincode on org2/peer2..."
-instantiateChaincode 2
+#Instantiate chaincode on Peer2/Org2
+# echo "Instantiating chaincode on org2/peer2..."
+# instantiateChaincode 2
 
 # #Query on chaincode on Peer0/Org1
 # echo "Querying chaincode on org1/peer0..."

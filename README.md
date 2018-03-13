@@ -26,9 +26,8 @@ npm install -g yo
 ```
 ```
 git clone -b issue-6978 https://github.com/sstone1/fabric-samples.git
-curl -sSL https://goo.gl/kFFqh5 | bash -s 1.0.6
 cd fabric-samples
-curl -sSL https://goo.gl/6wtTN5 | bash -s 1.1.0-rc1
+curl -sSL https://goo.gl/kFFqh5 | bash -s 1.0.6
 ```
 If you want test this install (optional) :
 ```

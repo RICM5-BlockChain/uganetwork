@@ -12,12 +12,7 @@ The following are prerequisites for installing the required development tools:
 > * Python: 2.7.x
 > * A code editor of your choice, we recommend VSCode
 
-If you are running on Ubuntu :
-```
-curl -O https://hyperledger.github.io/composer/prereqs-ubuntu.sh
-chmod u+x prereqs-ubuntu.sh
-./prereqs-ubuntu.sh
-```
+If you are running on Ubuntu or Mac OS go visit this website : https://hyperledger.github.io/composer/installing/installing-prereqs
 
 
 If you want run our project, this explanation will drive you how install correctly prerequities.

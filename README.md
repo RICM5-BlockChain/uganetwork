@@ -17,7 +17,7 @@ to generate certs and network artifacts then. This script should not generate an
 ```
 ./up.sh 
 ```
-to launch an End-to-End test. If the script finished without error you must see next line
+to launch an End-to-End test. If the script finished without error you must see next line :
 ```
 ========= All GOOD, BYFN execution completed =========== 
 
@@ -34,7 +34,7 @@ to launch an End-to-End test. If the script finished without error you must see 
 cd composer
 ./deploy.sh
 ```
-to run blockchain
+to run blockchain. When this script finish without error, there is 1 blockchain is running, 2 organizations (polytech, iae), compose of 2 peers (peer0, peer1) by organizations. And API rest running in your navigator.
 
 You must have already downloaded the hyperledger docker images :
 ```

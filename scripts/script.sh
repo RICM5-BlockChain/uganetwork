@@ -7,7 +7,7 @@ echo "\___ \    | |     / _ \   | |_) |   | |  "
 echo " ___) |   | |    / ___ \  |  _ <    | |  "
 echo "|____/    |_|   /_/   \_\ |_| \_\   |_|  "
 echo
-echo "Build your first network (BYFN) end-to-end test"
+echo "End-to-end test"
 echo
 CHANNEL_NAME="$1"
 DELAY="$2"
@@ -225,7 +225,7 @@ installChaincode 2
 # chaincodeInvoke 0
 
 echo
-echo "========= All GOOD, BYFN execution completed =========== "
+echo "========= All GOOD, setup and test execution completed =========== "
 echo
 
 echo

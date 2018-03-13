@@ -15,7 +15,7 @@ cd fabric-samples
 ```
 If you want test this install (optional) :
 ```
-cd fisrt-network
+cd first-network
 ./byfn.sh -m generate
 ./byfn.sh -m up
 ./byfn.sh -m down

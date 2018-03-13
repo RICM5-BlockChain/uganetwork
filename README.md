@@ -15,9 +15,11 @@ cd fabric-samples
 ```
 If you want test this install (optional) :
 ```
-first-network/byfn.sh -m generate
-first-network/byfn.sh -m up
-first-network/byfn.sh -m down
+cd fisrt-network
+./byfn.sh -m generate
+./byfn.sh -m up
+./byfn.sh -m down
+cd ..
 ```
 Now UGAChain part (verify your in fabric-samples/) :
 ```

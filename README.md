@@ -1,5 +1,5 @@
 ## UGA-Network
-Prerequities :
+I\ Prerequities (not support for Windows):
 To run Hyperledger Composer and Hyperledger Fabric, we recommend you have at least 4Gb of memory.
 
 The following are prerequisites for installing the required development tools:
@@ -10,12 +10,17 @@ The following are prerequisites for installing the required development tools:
 > * npm: v5.6.x or higher
 > * git: 2.9.x or higher
 > * Python: 2.7.x
+> * Curl : Version 7.58.x or higher
 > * A code editor of your choice, we recommend VSCode
+
+At this step you can do this tutorial : http://hyperledger-fabric.readthedocs.io/en/latest/write_first_app.html
+And for checking if all is alrirght and see more abour Hyperledger fabric visit this : http://hyperledger-fabric.readthedocs.io/en/latest/build_network.html
+
 
 If you are running on Ubuntu or Mac OS go visit this website : https://hyperledger.github.io/composer/installing/installing-prereqs
 
 
-If you want run our project, this explanation will drive you how install correctly prerequities.
+II\ If you want run our project, this explanation will drive you how install correctly prerequities.
 Firstly you have to clone this repository into fabric-sample repository
 
 ```

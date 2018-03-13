@@ -11,13 +11,13 @@ npm install -g yo
 ```
 git clone -b issue-6978 https://github.com/sstone1/fabric-samples.git
 curl -sSL https://goo.gl/kFFqh5 | bash -s 1.0.6
-cd fabric-sample
+cd fabric-samples
 ```
 If you want test this install (optional) :
 ```
-./byfn.sh -m generate
-./byfn.sh -m up
-./byfn.sh -m down
+first-network/byfn.sh -m generate
+first-network/byfn.sh -m up
+first-network/byfn.sh -m down
 ```
 Now UGAChain part (verify your in fabric-samples/) :
 ```

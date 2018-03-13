@@ -135,9 +135,9 @@ instantiateChaincode () {
 	# while 'peer chaincode' command can get the orderer endpoint from the peer (if join was successful),
 	# lets supply it directly as we know it using the "-o" option
 	if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "false" ]; then
-		peer chaincode instantiate -o orderer.ugachain.com:7050 -C $CHANNEL_NAME -n $NETWORK_NAME -v $COMPOSER_VERSION -c '{"Args":["init","a","100","b","200"]}' -P "OR	('PolytechMSP.member','IAEMSP.member')" >&log.txt
+		peer chaincode instantiate -o orderer.ugachain.com:7050 -C $CHANNEL_NAME -n $NETWORK_NAME -v $COMPOSER_VERSION -c '{"Args":["a","100"]}' -P "OR	('PolytechMSP.member','IAEMSP.member')" >&log.txt
 	else
-		peer chaincode instantiate -o orderer.ugachain.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n $NETWORK_NAME -v $COMPOSER_VERSION -c '{"Args":["init","a","100","b","200"]}' -P "OR	('PolytechMSP.member','IAEMSP.member')" >&log.txt
+		peer chaincode instantiate -o orderer.ugachain.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n $NETWORK_NAME -v $COMPOSER_VERSION -c '{"Args":["a","100"]}' -P "OR	('PolytechMSP.member','IAEMSP.member')" >&log.txt
 	fi
 	res=$?
 	cat log.txt
@@ -159,7 +159,7 @@ chaincodeQuery () {
   do
      sleep $DELAY
      echo "Attempting to Query PEER$PEER ...$(($(date +%s)-starttime)) secs"
-     peer chaincode query -C $CHANNEL_NAME -n $NETWORK_NAME -c '{"Args":["query","a"]}' >&log.txt
+     peer chaincode query -C $CHANNEL_NAME -n $NETWORK_NAME -c '{"Args":["get","a"]}' >&log.txt
      test $? -eq 0 && VALUE=$(cat log.txt | awk '/Query Result/ {print $NF}')
      test "$VALUE" = "$2" && let rc=0
   done
@@ -181,9 +181,9 @@ chaincodeInvoke () {
 	# while 'peer chaincode' command can get the orderer endpoint from the peer (if join was successful),
 	# lets supply it directly as we know it using the "-o" option
 	if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "false" ]; then
-		peer chaincode invoke -o orderer.ugachain.com:7050 -C $CHANNEL_NAME -n $NETWORK_NAME -c '{"Args":["invoke","a","b","10"]}' >&log.txt
+		peer chaincode invoke -o orderer.ugachain.com:7050 -C $CHANNEL_NAME -n $NETWORK_NAME -c '{"Args":[""]}' >&log.txt
 	else
-		peer chaincode invoke -o orderer.ugachain.com:7050  --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n $NETWORK_NAME -c '{"Args":["invoke","a","b","10"]}' >&log.txt
+		peer chaincode invoke -o orderer.ugachain.com:7050  --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n $NETWORK_NAME -c '{"Args":[""]}' >&log.txt
 	fi
 	res=$?
 	cat log.txt
@@ -206,23 +206,23 @@ updateAnchorPeers 0
 echo "Updating anchor peers for iae..."
 updateAnchorPeers 2
 
-# Install chaincode
-echo "Install chaincode 0"
-installChaincode 0
-echo "Install chaincode 2"
-installChaincode 2
+# ## Install chaincode
+# echo "Install chaincode 0"
+# installChaincode 0
+# echo "Install chaincode 2"
+# installChaincode 2
 
-#Instantiate chaincode on Peer2/Org2
+# ## Instantiate chaincode on Peer2/Org2
 # echo "Instantiating chaincode on org2/peer2..."
 # instantiateChaincode 2
 
-# #Query on chaincode on Peer0/Org1
+# ## Query on chaincode on Peer0/Org1
 # echo "Querying chaincode on org1/peer0..."
-# chaincodeQuery 0 100
+# chaincodeQuery 2 100
 
-# #Invoke on chaincode on Peer0/Org1
+# ## Invoke on chaincode on Peer0/Org1
 # echo "Sending invoke transaction on org1/peer0..."
-# chaincodeInvoke 0
+# chaincodeInvoke 2
 
 echo
 echo "========= All GOOD, setup and test execution completed =========== "

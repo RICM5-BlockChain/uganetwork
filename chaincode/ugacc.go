@@ -48,9 +48,15 @@ func (t *Certif) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
 	var result string
 	var err error
 	if fn == "set" {
+		fmt.Printf("SET")
 		result, err = set(stub, args)
-	} else { // assume 'get' even if fn is nil
+	} else if fn == "get" {
+		fmt.Printf("GET")
 		result, err = get(stub, args)
+	} else { // fn is nil so it's a ping ?
+		fmt.Printf("RIEN")
+		result = ""
+		err = nil
 	}
 	if err != nil {
 		return shim.Error(err.Error())

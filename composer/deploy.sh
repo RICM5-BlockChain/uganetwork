@@ -54,7 +54,6 @@ composer network start -c PeerAdmin@uga-network-polytech -a uga-network@0.0.1.bn
     -C polytechadmin/admin-pub.pem -A iaeadmin -C iaeadmin/admin-pub.pem \
     -l "DEBUG"
 
-
 # Création et importation d'une nouvelle business network card (Polytech Admin)
 composer card create -p composer/polytech/connection-polytech.json -u polytechadmin -n uga-network \
     -c polytechadmin/admin-pub.pem -k polytechadmin/admin-priv.pem
@@ -70,3 +69,6 @@ composer card import -f iaeadmin@uga-network.card
 
 # Ping IAEAdmin
 composer network ping -c iaeadmin@uga-network
+
+# Start the REST server
+composer-rest-server -c polytechadmin@uga-network -n never -w true

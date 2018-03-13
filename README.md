@@ -19,7 +19,7 @@ If you want test this install (optional) :
 ./byfn.sh -m up
 ./byfn.sh -m down
 ```
-Now UGAChain part :
+Now UGAChain part (verify your in fabric-samples/) :
 ```
 git clone https://github.com/RICM5-BlockChain/uganetwork.git
 npm install -g composer-cli@0.16.5
@@ -52,7 +52,13 @@ cd composer
 ```
 to run blockchain. When this script finish without error, there is 1 blockchain is running, 2 organizations (polytech, iae), compose of 2 peers (peer0, peer1) by organizations. And API rest running in your navigator.
 
-You must have already downloaded the hyperledger docker images :
+Now before restart you have to now how clean your env :
+there is 2 files (in fabric-samples/uganetwork/)
 ```
-curl -sSL https://goo.gl/kFFqh5 | bash -s 1.0.6
+#to delete dockers
+./clear.sh
+#to clean blockchain in dockers
+cd composer
+./reset.sh
 ```
+

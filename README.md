@@ -3,8 +3,8 @@ If you want run our project, this explanation will drive you how install correct
 Firstly you have to clone this repository into fabric-sample repository
 
 ```
-npm install -g composer-cli
-npm install -g composer-rest-server
+npm install -g composer-cli@0.16.5
+npm install -g composer-rest-server@0.16.5
 npm install -g generator-hyperledger-composer
 npm install -g yo
 ```
@@ -22,8 +22,6 @@ If you want test this install (optional) :
 Now UGAChain part (verify your in fabric-samples/) :
 ```
 git clone https://github.com/RICM5-BlockChain/uganetwork.git
-npm install -g composer-cli@0.16.5
-npm install -g composer-rest-server@0.16.5
 ```
 
 ```
